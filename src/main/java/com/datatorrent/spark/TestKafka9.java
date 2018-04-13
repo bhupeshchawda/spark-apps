@@ -19,7 +19,7 @@
 ///**
 // * Created by bhupesh on 8/2/18.
 // */
-//public class SparkTestApp
+//public class SparkKafkaTestApp
 //{
 //  public static void main(String[] args) throws StreamingQueryException, InterruptedException
 //  {

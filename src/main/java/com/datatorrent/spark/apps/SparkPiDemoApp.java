@@ -11,20 +11,20 @@ import org.apache.spark.streaming.api.java.JavaStreamingContext;
  */
 public class SparkPiDemoApp
 {
-  public static void main(String[] args)
+  public static void main(String[] args) throws InterruptedException
   {
+    SparkConf conf = new SparkConf();
+    JavaStreamingContext jsc = new JavaStreamingContext(conf, Milliseconds.apply(1000));
 
-    SparkConf sparkConf = new SparkConf().setAppName("SparkPiDemo");
-    JavaStreamingContext jsc = new JavaStreamingContext(sparkConf, new Duration(1000));
-
-//    JavaStreamingContext jsc = new JavaStreamingContext(args[0], "Test", Milliseconds.apply(1000));
-//
-    jsc.textFileStream("/tmp/logs").map(new Function<String, String[]>()
+    jsc.textFileStream("/tmp/sparkin").map(new Function<String, String[]>()
     {
       public String[] call(String v1) throws Exception
       {
         return v1.split(" ");
       }
-    }).count().print();
+    }).count().dstream().print();
+
+    jsc.start();
+    jsc.awaitTermination();
   }
 }
